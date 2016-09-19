@@ -35,11 +35,18 @@ public class Ensembler{
 	private int    mAmtInstances;
 	private int    mAmtLabels;
 
+	//List that will store the final result of the last call to hillclimb()
+	private int finalEnsembleErrorCount;
+	private int bestModelErrorCount;
+	private boolean climbed;
+
 	//Global paths. Aliasing them for readability
 	private String iwpPath; //Instancewise Predictions Directory Path (a directory containing txt files)
 	private String cmPath;
 	private String rPath;   //Configuration Ranking Path (a xml file)
+
 	public Ensembler(String temporaryDirPath){ //TODO make some sort of factory for the many options
+		climbed = false;
 		iwpPath = temporaryDirPath+instancewiseInfoDirPath;
 		rPath   = temporaryDirPath+configurationRankingPath;
 		cmPath  = temporaryDirPath+configurationMapPath;
@@ -63,6 +70,7 @@ public class Ensembler{
 		}catch(IOException e){
 			log.debug("Couldn't read a line in one of the instancewise prediction logs");
 		}
+
 	}
 
 	//Helper for the constructor.
@@ -121,7 +129,16 @@ public class Ensembler{
 		mLabelFrequencies.put(labelIndex,temp);
 	}
 
-
+	public getErrorCounts(){
+		if(!climbed){
+			throw new RuntimeException("You didn't do the hillclimb yet so there's no data");
+		}	else{
+			int [] rv = new int [2];
+			rv[0] = bestModelErrorCount;
+			rv[1] = finalEnsembleErrorCount;
+			return rv;
+		}
+	}
 
 	//The hillclimb method contains an implemention of Rich Caruana's Ensemble Selection, a greedy hillclimbing algorithm.
 	//I'm doing it the straightforward way. A faster way is feasible, but so far this one always takes less than a second anyway
@@ -179,6 +196,11 @@ public class Ensembler{
 		//Slicing from 0 to the first occurrence of the smallest error count
 		int sliceIndex = Util.indexMin(hillclimbingStepPerformances);
 		currentPartialEnsemble = Util.getSlicedList(currentPartialEnsemble,0,sliceIndex);
+
+		//Saving this in case we wanna print comparative errorcounts from the model and the
+		this.finalEnsembleErrorCount = Util.min(hillclimbingStepPerformances);
+		this.bestModelErrorCount = hillclimbingStepPerformances.get(0);
+		this.climbed=true;
 
 		//Unwrapping the Configurations from the EnsembleElements
 		List<Configuration> rv = new ArrayList<Configuration>();

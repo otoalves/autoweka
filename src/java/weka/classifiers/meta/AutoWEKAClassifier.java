@@ -189,7 +189,9 @@ public class AutoWEKAClassifier extends AbstractClassifier implements Additional
     /** The evaluation for the best classifier. */
     protected Evaluation eval;
 
-	  private List<Configuration> finalEnsemble;
+	  private List <Configuration> finalEnsemble;
+    private int finalEnsembleErrorCount;
+    private int bestModelErrorCount;
 
     private transient weka.gui.Logger wLog;
 
@@ -379,6 +381,9 @@ public class AutoWEKAClassifier extends AbstractClassifier implements Additional
         long startTime= System.nanoTime();
         Ensembler e = new Ensembler(msExperimentPath+expName+"/");
 	   	  finalEnsemble = e.hillclimb();
+        int[] scores = e.getErrorCounts();
+        bestModelErrorCount     = scores[0];
+        finalEnsembleErrorCount = scores[1];
 
 			  for(Configuration c : finalEnsemble){
 
@@ -974,8 +979,8 @@ public class AutoWEKAClassifier extends AbstractClassifier implements Additional
 			  }
 
         res+="\n\nComparison with best model:";
-        res+="\nBest model's error count:";
-        res+="\nEnsemble's error count:";
+        res+="\nBest model's error count: " + bestModelErrorCount;
+        res+="\nEnsemble's error count: "   + finalEnsembleErrorCount;
 			  res+="\n\n----END OF ENSEMBLE----";
 
       }
