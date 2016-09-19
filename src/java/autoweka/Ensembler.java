@@ -129,7 +129,7 @@ public class Ensembler{
 		mLabelFrequencies.put(labelIndex,temp);
 	}
 
-	public getErrorCounts(){
+	public void getErrorCounts(){
 		if(!climbed){
 			throw new RuntimeException("You didn't do the hillclimb yet so there's no data");
 		}	else{
