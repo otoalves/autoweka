@@ -416,6 +416,16 @@ public class Util
        return index_min;
      }
 
+     //Returns the minimum value in a list of integers
+     static public int min(List<Integer>a){
+       int min = Integer.MAX_VALUE;
+       for(int i=0; i<a.size() ;i++){
+         if(a.get(i)<min){
+           min=a.get(i);
+         }
+       }
+       return min;
+     }
 
     /**
      * Given a property string (var1=val1:var2=val2:....) convert it to a property object.
