@@ -457,7 +457,7 @@ public class AutoWEKAClassifier extends AbstractClassifier implements Additional
        System.exit(1);
      }
 
-      recDeleteOnExit(new File(msExperimentPath);
+      recDeleteOnExit(new File(msExperimentPath));
 
 
     }
