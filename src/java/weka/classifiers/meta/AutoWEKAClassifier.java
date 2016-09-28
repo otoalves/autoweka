@@ -457,8 +457,18 @@ public class AutoWEKAClassifier extends AbstractClassifier implements Additional
        System.exit(1);
      }
 
+      recDeleteOnExit(new File(msExperimentPath);
 
 
+    }
+    
+    private void recDeleteOnExit(File dir){
+	    for(File file : dir.listFiles()){
+		    if(file.isDirectory()){
+			    recDeleteOnExit(file);
+		    }
+		    file.deleteOnExit();
+	    }
     }
 
 	 public Map<String,String> parseConfigurationArgs(Configuration c){
