@@ -205,6 +205,7 @@ public class AutoWEKAClassifier extends AbstractClassifier implements Additional
      */
     public static void main(String[] argv) {
         // this always succeeds...
+        targetDataset = argv[argv.length-1];
           runClassifier(new AutoWEKAClassifier(), argv);
     }
 
@@ -464,7 +465,7 @@ public class AutoWEKAClassifier extends AbstractClassifier implements Additional
 
 
     }
-    
+
     private void recDeleteOnExit(File dir){
 	    for(File file : dir.listFiles()){
 		    if(file.isDirectory()){
@@ -980,7 +981,7 @@ public class AutoWEKAClassifier extends AbstractClassifier implements Additional
 		  if(ensembleSelection){
 
 			  res+=  "\n\n------- ENSEMBLE OF MODELS -------";
-           res+= targetDataset+"\n";
+           res+= "dataset:"+targetDataset+"\n";
            res+= "args: "+ (attributeSearchArgs != null ? Arrays.toString(attributeSearchArgs) : "[]")+"\n";
 
         if(finalEnsemble!=null && finalEnsemble.size()<=1){ //If the ensembler couldnt build an ensemble better than the best scoring model, display the message below.
