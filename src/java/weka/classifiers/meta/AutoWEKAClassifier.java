@@ -190,7 +190,7 @@ public class AutoWEKAClassifier extends AbstractClassifier implements Additional
     protected Evaluation eval;
 
     /** The dataset name*/
-    protected String targetDataset;
+    protected static String targetDataset;
 
 	  private List <Configuration> finalEnsemble;
     private int finalEnsembleErrorCount;
