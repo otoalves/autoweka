@@ -189,6 +189,9 @@ public class AutoWEKAClassifier extends AbstractClassifier implements Additional
     /** The evaluation for the best classifier. */
     protected Evaluation eval;
 
+    /** The dataset name*/
+    protected String targetDataset;
+
 	  private List <Configuration> finalEnsemble;
     private int finalEnsembleErrorCount;
     private int bestModelErrorCount;
@@ -896,6 +899,8 @@ public class AutoWEKAClassifier extends AbstractClassifier implements Additional
      * @return The string.
      */
     public String toString() {
+      res+= targetDataset+"\n";
+      res+= "args: "+ (attributeSearchArgs != null ? Arrays.toString(attributeSearchArgs) : "[]")+"\n";
 
         String res = "best classifier: " + classifierClass + "\n" +
             "arguments: " + (classifierArgs != null ? Arrays.toString(classifierArgs) : "[]") + "\n" +
