@@ -899,8 +899,6 @@ public class AutoWEKAClassifier extends AbstractClassifier implements Additional
      * @return The string.
      */
     public String toString() {
-      res+= targetDataset+"\n";
-      res+= "args: "+ (attributeSearchArgs != null ? Arrays.toString(attributeSearchArgs) : "[]")+"\n";
 
         String res = "best classifier: " + classifierClass + "\n" +
             "arguments: " + (classifierArgs != null ? Arrays.toString(classifierArgs) : "[]") + "\n" +
@@ -970,6 +968,8 @@ public class AutoWEKAClassifier extends AbstractClassifier implements Additional
 		  if(ensembleSelection){
 
 			  res+=  "\n\n------- ENSEMBLE OF MODELS -------";
+           res+= targetDataset+"\n";
+           res+= "args: "+ (attributeSearchArgs != null ? Arrays.toString(attributeSearchArgs) : "[]")+"\n";
 
         if(finalEnsemble!=null && finalEnsemble.size()<=1){ //If the ensembler couldnt build an ensemble better than the best scoring model, display the message below.
 				  res+= "\nCouldn't build any ensemble with a better performance than the single best configuration found by Auto-WEKA.";
