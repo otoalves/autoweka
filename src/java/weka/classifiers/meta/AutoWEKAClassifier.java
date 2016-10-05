@@ -999,6 +999,8 @@ public class AutoWEKAClassifier extends AbstractClassifier implements Additional
         res+="\n\nComparison with best model:";
         res+="\nBest model's error count: " + bestModelErrorCount;
         res+="\nEnsemble's error count: "   + finalEnsembleErrorCount;
+        res+="\nAmount of fully evaluated configurations: "   + fullyEvaluatedAmt;
+        res+="\nEnsemble Size: "   + finalEnsemble.size();
 			  res+="\n\n----END OF ENSEMBLE----";
 
       }
